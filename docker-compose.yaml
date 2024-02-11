@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    wallet-service:
+        container_name: wallet_service
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        environment:
+        - MONGO_URI=${MONGO_URL:-mongodb://mongodb:27017/users}
+        - REDIS_HOST=${REDIS_HOST:-redis}
+        - REDIS_PORT=${REDIS_PORT:-6379}
+      
+        command: npm run start
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: always
+

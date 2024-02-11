@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package wallets;
+
+message create_wallet_response {
+  string _id = 1;
+  string userId = 2;
+  float balance = 3;
+}
+message create_wallet_request { string userId = 1; }
+
+message get_wallet_balance { float balance = 1; }
+
+message deposit_money_request {
+  string userId = 1;
+  float amount = 2;
+}
+
+message deposit_money_response { string referenceId = 1; }
+
+service WalletService {
+  rpc createWallet(create_wallet_request) returns (create_wallet_response);
+
+  rpc balance(create_wallet_request) returns (get_wallet_balance);
+
+  rpc deposit(deposit_money_request) returns (deposit_money_response);
+}
